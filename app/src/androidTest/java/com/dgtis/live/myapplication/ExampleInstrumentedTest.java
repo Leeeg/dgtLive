@@ -1,4 +1,4 @@
-package com.example.dgtis.myapplication;
+package com.dgtis.live.myapplication;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

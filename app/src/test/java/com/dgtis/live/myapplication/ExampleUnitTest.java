@@ -1,4 +1,4 @@
-package com.example.dgtis.myapplication;
+package com.dgtis.live.myapplication;
 
 import org.junit.Test;
 
