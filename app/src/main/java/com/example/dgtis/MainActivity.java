@@ -1,7 +1,11 @@
-package com.example.dgtis.myapplication;
+package com.example.dgtis;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import com.example.dgtis.myapplication.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -9,5 +13,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
