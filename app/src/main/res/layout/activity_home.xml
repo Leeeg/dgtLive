@@ -1,10 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:scaleType="fitStart"
+        android:src="@drawable/cat3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_marginTop="30dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/liveroom_table_top_ibt_serach"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:paddingLeft="5dp"/>
+
+        <android.support.design.widget.TabLayout
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/liveroom_table_top_ibt_serach"
+            android:layout_toLeftOf="@+id/liveroom_table_top_ibt_game"
+            android:layout_width="match_parent"
+            android:id="@+id/liveroom_table_tab"
+            app:tabMinWidth="80dp"
+            app:tabTextAppearance="@style/TabLayoutTextStyle"
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@android:color/holo_orange_light"
+            app:tabBackground="@null"
+            app:tabIndicatorHeight="1dp"
+            android:layout_height="50dp">
+
+        </android.support.design.widget.TabLayout>
+
+        <ImageButton
+            android:layout_marginTop="30sp"
+            android:layout_alignParentRight="true"
+            android:id="@+id/liveroom_table_top_ibt_game"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:paddingRight="5dp"/>
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/ll_calender"
+        android:layout_below="@+id/rl_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+    </FrameLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshScrollView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/white"
+        android:layout_below="@+id/ll_calender"
         android:id="@+id/type_pull_refresh_scrollview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -23,14 +80,22 @@
             android:orientation="vertical">
 
             <com.youth.banner.Banner
+                android:visibility="gone"
                 android:id="@+id/banner"
                 ptr:indicator_drawable_selected="@drawable/shape_banner_point"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="200dp"
                 android:layout_marginBottom="7dp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_room_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
 
     </com.handmark.pulltorefresh.library.PullToRefreshScrollView>
 
-</LinearLayout>
+</RelativeLayout>

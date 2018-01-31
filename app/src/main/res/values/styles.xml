@@ -14,5 +14,11 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <!-- tabLayout -->
+    <style name="TabLayoutTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">@dimen/tablayout_textsize</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 
 </resources>

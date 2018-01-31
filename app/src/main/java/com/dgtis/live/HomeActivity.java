@@ -2,34 +2,73 @@ package com.dgtis.live;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
+import com.dgtis.live.adapters.RoomListAdapter;
+import com.dgtis.live.adapters.RoomListItem;
+import com.dgtis.live.imageLoader.BannerGlideImageLoader;
 import com.dgtis.live.myapplication.R;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import qiu.niorgai.StatusBarCompat;
 
 /**
  * Created by DELLL on 2018/1/30.
  */
 
+@ContentView(R.layout.activity_home)
 public class HomeActivity extends BaseActivity {
 
+    @ViewInject(R.id.banner)
     private Banner banner;
-    private List bannerList = new ArrayList();
+
+    @ViewInject(R.id.recycle_room_list)
+    private RecyclerView recyclerView;
+
+    private RoomListAdapter roomListAdapter;
+    private List<String> bannerList = new ArrayList();
+    private List<RoomListItem> roomList = new ArrayList();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        banner = find(R.id.banner);
+
+        //透明状态栏
+        StatusBarCompat.translucentStatusBar(this);
+        //SDK >= 21时, 取消状态栏的阴影
+        StatusBarCompat.translucentStatusBar(this, true);
+
         initBanner();
+        initRoomList();
+    }
+
+    private void initRoomList() {
+        for (int i = 0; i < 10; i++) {
+            roomList.add(new RoomListItem());
+        }
+        Toast.makeText(this, roomList.size()+"", Toast.LENGTH_SHORT).show();
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        roomListAdapter = new RoomListAdapter(this, roomList);
+        recyclerView.setAdapter(roomListAdapter);
     }
 
     private void initBanner() {
+        bannerList.add("file:///android_asset/cat1.jpg");
+        bannerList.add("file:///android_asset/cat2.jpg");
+        bannerList.add("file:///android_asset/cat3.jpg");
+        bannerList.add("file:///android_asset/cat4.jpg");
         banner.setVisibility(View.VISIBLE);
         //设置banner样式
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);

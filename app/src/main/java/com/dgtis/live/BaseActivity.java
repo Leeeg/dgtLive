@@ -84,8 +84,6 @@ public class BaseActivity extends FragmentActivity {
         x.view().inject(this);
         //禁止横屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        color = getResources().getColor(R.color.colorBlack);
-//        setStatusBar(this);
         appManager = APPManager.getInstance();
         manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
     }
