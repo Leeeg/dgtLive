@@ -15,8 +15,11 @@ import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +89,27 @@ public class HomeActivity extends BaseActivity {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+    }
+
+    private void getRoomList(){
+        RequestParams params = new RequestParams(API.ROOT + API.LOGIN);
+        params.addQueryStringParameter("id","1");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            //请求成功的回调方法
+            @Override
+            public void onSuccess(String result) {
+            }
+            //请求异常后的回调方法
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+            }
+            //主动调用取消请求的回调方法
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+            @Override
+            public void onFinished() {
+            }
+        });
     }
 }
