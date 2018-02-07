@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    android:background="@android:color/white"
+    android:layout_height="60dp">
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_4"
+        android:src="@drawable/startlive"
+        android:id="@+id/bottom_play_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_above="@id/bottom_live_text"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_toLeftOf="@+id/bottom_play_img"
+        android:src="@drawable/home_live_img"
+        android:id="@+id/bottom_live_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_above="@+id/bottom_personal_text"
+        android:layout_marginTop="@dimen/dp_12"
+        android:layout_toRightOf="@+id/bottom_play_img"
+        android:src="@drawable/home_personal_img"
+        android:id="@+id/bottom_personal_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_alignParentBottom="true"
+        android:textColor="@drawable/home_text"
+        android:gravity="center"
+        android:layout_toLeftOf="@+id/bottom_play_img"
+        android:text="@string/video"
+        android:id="@+id/bottom_live_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textColor="@drawable/home_text"
+        android:layout_marginBottom="@dimen/dp_4"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/bottom_play_img"
+        android:text="@string/my"
+        android:id="@+id/bottom_personal_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,32 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:tools="http://schemas.android.com/tools"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               tools:context="com.dgtis.live.HomeActivity"
               android:layout_width="match_parent"
-              android:layout_marginTop="@dimen/dp_12"
-              android:layout_height="250dp">
+    android:padding="@dimen/dp_8"
+              android:layout_height="wrap_content">
 
-    <ImageView
+    <com.dgtis.live.imageVIew.MyCircleAngleImageView
+        xmlns:melove="http://schemas.android.com/apk/res-auto"
         android:id="@+id/image_cover"
         android:scaleType="centerCrop"
         android:src="@drawable/cat3"
         android:layout_width="match_parent"
-        android:layout_height="190dp" />
-
-    <com.dgtis.live.imageVIew.RoundImageView
-        app:borderRadius="3dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/icon1"
-        android:id="@+id/icon_anchor"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/dp_8"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50" />
+        android:layout_height="190dp"
+        melove:radius="10dp"
+        melove:shape_type="rectangle" />
 
     <TextView
         android:id="@+id/title_room"
-        android:layout_toRightOf="@+id/icon_anchor"
         android:layout_below="@+id/image_cover"
         android:layout_marginTop="@dimen/dp_8"
         android:textColor="@android:color/black"
@@ -35,26 +26,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-        android:id="@+id/owner_room"
-        android:layout_toRightOf="@+id/icon_anchor"
+    <LinearLayout
         android:layout_below="@+id/title_room"
-        android:layout_marginTop="@dimen/dp_2"
-        android:textSize="@dimen/sp_16"
-        android:text="昵称xx"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/time_room"
-        android:layout_toRightOf="@+id/owner_room"
-        android:layout_below="@+id/title_room"
-        android:layout_marginTop="@dimen/dp_2"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:textSize="@dimen/sp_16"
-        android:text="01-09 21:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@drawable/live_item_time"
+            android:id="@+id/live_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/time_room"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:textSize="@dimen/sp_16"
+            android:text="01-09 21:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@drawable/live_item_people"
+            android:id="@+id/live_people"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/people_room"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:textSize="@dimen/sp_16"
+            android:text="213"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
 
 </RelativeLayout>

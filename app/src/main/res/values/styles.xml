@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@android:color/holo_green_light</item>
+        <item name="colorPrimaryDark">@color/color_black</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -19,6 +19,7 @@
         <item name="android:textSize">@dimen/tablayout_textsize</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
+
 
 
 </resources>
