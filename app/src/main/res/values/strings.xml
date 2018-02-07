@@ -16,6 +16,14 @@
         completions."
     </string>
 
-    <string name="video">"视频"</string>
-    <string name="my">"我的"</string>
+    <string name="video">                "视频"</string>
+    <string name="my">                   "我的"</string>
+    <string name="account">              "我的账户"</string>
+    <string name="contact">              "联系我们"</string>
+    <string name="cooperation">          "商务合作"</string>
+    <string name="login_out">            "退出登录"</string>
+    <string name="my_wallet">            "我的账户"</string>
+    <string name="remaining_sum">        "账户余额"</string>
+    <string name="withdraw_deposit">     "提现"</string>
+    <string name="detail">               "收支明细"</string>
 </resources>

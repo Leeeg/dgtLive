@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_8"
+        android:background="@color/color_black"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+
+        <ImageView
+            android:src="@drawable/tab_top_back"
+            android:id="@+id/tab_top_back"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/sp_18"
+            android:textColor="@color/color_white"
+            android:text="@string/my_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:gravity="center"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="@dimen/dp_8"
+            android:src="@drawable/wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/remaining_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginBottom="@dimen/dp_8"
+            android:textColor="@color/color_black"
+            android:textSize="@dimen/sp_34"
+            android:text="0.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="@dimen/dp_60"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:padding="@dimen/dp_14"
+        android:background="@drawable/shape_round_all_strokeblue"
+        android:textSize="@dimen/sp_20"
+        android:gravity="center"
+        android:textColor="@color/color_white"
+        android:text="@string/withdraw_deposit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"
+        android:padding="@dimen/dp_14"
+        android:background="@drawable/shape_round_all_strokewhite"
+        android:layout_marginTop="@dimen/dp_8"
+        android:textSize="@dimen/sp_20"
+        android:gravity="center"
+        android:textColor="@color/color_blue"
+        android:text="@string/detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

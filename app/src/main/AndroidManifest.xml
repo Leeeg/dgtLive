@@ -32,6 +32,8 @@
             android:name="com.dgtis.live.HomeActivity"
             android:label="@string/title_activity_home"></activity>
 
+        <activity android:name="com.dgtis.live.WalletActivity"/>
+
     </application>
 
 </manifest>
