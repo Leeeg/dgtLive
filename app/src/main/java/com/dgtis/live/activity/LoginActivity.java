@@ -1,4 +1,4 @@
-package com.dgtis.live;
+package com.dgtis.live.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

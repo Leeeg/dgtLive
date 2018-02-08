@@ -1,4 +1,4 @@
-package com.dgtis.live;
+package com.dgtis.live.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

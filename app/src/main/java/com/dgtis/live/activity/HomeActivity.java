@@ -1,4 +1,4 @@
-package com.dgtis.live;
+package com.dgtis.live.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

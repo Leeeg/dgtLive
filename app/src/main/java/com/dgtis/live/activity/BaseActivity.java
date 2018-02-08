@@ -1,4 +1,4 @@
-package com.dgtis.live;
+package com.dgtis.live.activity;
 
 import android.app.Activity;
 import android.content.Context;
