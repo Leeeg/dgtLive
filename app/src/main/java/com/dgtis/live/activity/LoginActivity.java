@@ -29,11 +29,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dgtis.live.API;
 import com.dgtis.live.myapplication.R;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -162,6 +168,32 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
+        RequestParams params = new RequestParams(API.ROOT + API.LOGIN);
+        params.addQueryStringParameter("loginId", "13816542203");
+        params.addQueryStringParameter("loginPwd", "123");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(LoginActivity.this, "error", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCancelled(CancelledException cex) {
+                Toast.makeText(LoginActivity.this, "cancel", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFinished() {
+                Toast.makeText(LoginActivity.this, "finish", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        showProgress(true);
+        mAuthTask = new UserLoginTask(email, password);
+        mAuthTask.execute((Void) null);
+/**
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
@@ -191,6 +223,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
         }
+ **/
     }
 
     private boolean isEmailValid(String email) {
