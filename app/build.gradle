@@ -17,6 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -39,6 +44,10 @@ dependencies {
     compile 'pub.devrel:easypermissions:0.4.3'
     compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'})
+
+
+    // 导入腾讯云直播SDK aar
+    compile(name: 'LiteAVSDK_Smart_3.9.2754', ext: 'aar')
 
     compile project(':pullToRefresh')
 }

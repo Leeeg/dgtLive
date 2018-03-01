@@ -100,9 +100,9 @@ public class SystemUtil {
 
     public static String getHandSetInfo(){
         String handSetInfo=
-                        "手机型号:" + android.os.Build.MODEL +
-                        ",SDK版本:" + android.os.Build.VERSION.SDK +
-                        ",系统版本:" + android.os.Build.VERSION.RELEASE;
+                        "手机型号:" + Build.MODEL +
+                        ",SDK版本:" + Build.VERSION.SDK +
+                        ",系统版本:" + Build.VERSION.RELEASE;
         return handSetInfo;
     }
 

@@ -18,7 +18,7 @@
         android:layout_marginTop="@dimen/dp_12"
         android:layout_toLeftOf="@+id/bottom_play_img"
         android:src="@drawable/home_live_img"
-        android:id="@+id/bottom_live_img"
+        android:id="@+id/bottom_live_icon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -26,4 +26,18 @@
     <string name="remaining_sum">        "账户余额"</string>
     <string name="withdraw_deposit">     "提现"</string>
     <string name="detail">               "收支明细"</string>
+    <string name="start_live">           "○发起直播"</string>
+    <string name="set_cover">            "「 设置封面 」"</string>
+    <string name="live_title">           "直播标题"</string>
+    <string name="live_time">            "开播时间"</string>
+    <string name="live_style">           "直播方式"</string>
+    <string name="live_join">            "参与方式"</string>
+    <string name="live_content">         "内容介绍"</string>
+    <string name="live_recommend">       "推荐给参与过我直播的人"</string>
+    <string name="live_set">             "未设置"</string>
+    <string name="live_start">           "立即开始"</string>
+    <string name="live_video">           "视频直播"</string>
+    <string name="live_free">            "公开"</string>
+    <string name="live_crate">           "创建"</string>
+    <string name="live_share">           "分享到:"</string>
 </resources>

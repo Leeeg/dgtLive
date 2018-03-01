@@ -2,32 +2,20 @@ package com.dgtis.live.activity;
 
 import android.Manifest;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.dgtis.live.API;
-import com.dgtis.live.SystemCache;
 import com.dgtis.live.fragments.HomeFragment;
 import com.dgtis.live.fragments.PersonalFragment;
 import com.dgtis.live.myapplication.R;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
-import org.xutils.x;
-
-import java.io.File;
 
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -41,7 +29,7 @@ public class HomeActivity extends BaseActivity {
     private HomeFragment homeFragment;
     private PersonalFragment personalFragment;
 
-    @ViewInject(R.id.bottom_play_img)
+    @ViewInject(R.id.bottom_live_icon)
     private ImageView liveImg;
 
     @ViewInject(R.id.bottom_live_text)
@@ -53,7 +41,7 @@ public class HomeActivity extends BaseActivity {
     @ViewInject(R.id.bottom_personal_text)
     private TextView personalTxt;
 
-    @Event({R.id.bottom_live_img, R.id.bottom_live_text})
+    @Event({R.id.bottom_live_icon, R.id.bottom_live_text})
     private void onLiveClick(View view){
         switchFragment(0);
     }
@@ -65,38 +53,10 @@ public class HomeActivity extends BaseActivity {
 
     @Event(R.id.bottom_play_img)
     private void playLive(View view){
-//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//        intent.setType("image/*");
-//        intent.putExtra("crop", true);
-//        intent.putExtra("return-data", true);
-//        startActivityForResult(intent, 0);
+        Intent intent = new Intent(HomeActivity.this, LiveActivity.class);
+        startActivity(intent);
 
-
-        File file = new File(SystemCache.RNFOLDER);
-//        params.addBodyParameter("fileArr", file);
-        RequestParams params = new RequestParams(API.ROOT + API.UPLOAD);
-        params.setMultipart(true);
-        params.addBodyParameter("fileArr",file);
-        x.http().get(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Toast.makeText(HomeActivity.this, "success", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(HomeActivity.this, "error", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onCancelled(CancelledException cex) {
-                Toast.makeText(HomeActivity.this, "cancel", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFinished() {
-                Toast.makeText(HomeActivity.this, "finish", Toast.LENGTH_SHORT).show();
-            }
-        });
     }
-
 
 
     @Override
@@ -153,20 +113,4 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 0) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            //picturePath就是图片在储存卡所在的位置
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-        }
-    }
 }
