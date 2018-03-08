@@ -21,6 +21,12 @@ public interface API {
 
     String BACKLIST = "/liveVideo/selectVideoEndStatus.if";
 
+    String DELETEVIDEO = "/liveVideo/delete.if";
+
+    String USERMSG = "/appLiveInterface/updateLiveUser.if";
+
+    String VIDEOEDIT = "/liveVideo/editVideo.if";
+
 
 
 }

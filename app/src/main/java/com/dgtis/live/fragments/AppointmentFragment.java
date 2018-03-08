@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.dgtis.live.API;
+import com.dgtis.live.Inners.GsonInner;
 import com.dgtis.live.adapters.RoomListAdapter;
 import com.dgtis.live.common.ItemType;
 import com.dgtis.live.model.RoomListItem;
@@ -63,6 +64,7 @@ public class AppointmentFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getRoomList();
                 refreshLayout.setRefreshing(false);
             }
         });
@@ -73,23 +75,15 @@ public class AppointmentFragment extends BaseFragment {
         roomListAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                choseIconPopWindow(view);
+                menuPopupWindow(view, i);
             }
         });
 
         getRoomList();
     }
 
-    private void initRoomList() {
-        for (int i = 0; i < 10; i++) {
-            RoomListItem item = new RoomListItem();
-            item.setItemType(ItemType.TYPE1);
-            roomList.add(item);
-        }
-
-    }
-
     private void getRoomList(){
+        roomList.clear();
         RequestParams params = new RequestParams(API.ROOT + API.ROOMLIST);
         params.addQueryStringParameter("loginId","13621761774");
         params.addQueryStringParameter("rows","10");
@@ -100,16 +94,21 @@ public class AppointmentFragment extends BaseFragment {
             public void onSuccess(String result) {
                 try {
                     JSONObject jsonObject = new JSONObject(result);
-                    if (jsonObject.getString("opState").equals("SUCCESS")){
+                    if (jsonObject.getString("opState").equals("SUCCESS") && jsonObject.getJSONArray("opValue").length() > 0){
                         LogUtil.e(result);
-
+                        for (int i = 0; i < jsonObject.getJSONArray("opValue").length(); i++) {
+                            RoomListItem item = GsonInner.getGsonInstance().fromJson(jsonObject.getJSONArray("opValue").get(i).toString(), RoomListItem.class);
+                            item.setItemType(ItemType.TYPE1);
+                            roomList.add(item);
+                        }
                     }else {
                         roomListAdapter.setEmptyView(View.inflate(getContext(), R.layout.empty, null));
-                        roomListAdapter.notifyDataSetChanged();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    roomListAdapter.setEmptyView(View.inflate(getContext(), R.layout.empty, null));
                 }
+                roomListAdapter.notifyDataSetChanged();
             }
             //请求异常后的回调方法
             @Override
@@ -129,9 +128,9 @@ public class AppointmentFragment extends BaseFragment {
     }
 
 
-    private void choseIconPopWindow(View v) {
+    private void menuPopupWindow(View v, final int index) {
         View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
-        View popView = View.inflate(getActivity(), R.layout.layout_pop, null);
+        View popView = View.inflate(getActivity(), R.layout.layout_pop_menu, null);
 
         LinearLayout wx          = (LinearLayout) popView.findViewById(R.id.pop_wx);
         LinearLayout pyq         = (LinearLayout) popView.findViewById(R.id.pop_pyq);
@@ -180,11 +179,30 @@ public class AppointmentFragment extends BaseFragment {
                         putTextIntoClip(getContext());
                         break;
                     case R.id.pop_edit:
-
-
+                        editPopupWindow(v, index);
                         break;
                     case R.id.pop_delete:
-
+                        RequestParams params = new RequestParams(API.ROOT + API.DELETEVIDEO);
+                        params.addQueryStringParameter("videoId",roomList.get(index).getVideoId());
+                        x.http().get(params, new Callback.CommonCallback<String>() {
+                            //请求成功的回调方法
+                            @Override
+                            public void onSuccess(String result) {
+                                Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+                                roomListAdapter.notifyItemRemoved(index);
+                            }
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+                                LogUtil.d(ex.toString());
+                            }
+                            //主动调用取消请求的回调方法
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+                            }
+                            @Override
+                            public void onFinished() {
+                            }
+                        });
 
                         break;
                     case R.id.pop_empty:
@@ -220,6 +238,72 @@ public class AppointmentFragment extends BaseFragment {
         popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
     }
 
+
+    private void editPopupWindow(View v, final int index) {
+        View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        View popView = View.inflate(getActivity(), R.layout.layout_pop_edit, null);
+//
+//        LinearLayout wx          = (LinearLayout) popView.findViewById(R.id.pop_wx);
+//        LinearLayout pyq         = (LinearLayout) popView.findViewById(R.id.pop_pyq);
+//        LinearLayout wb          = (LinearLayout) popView.findViewById(R.id.pop_wb);
+//        LinearLayout qq          = (LinearLayout) popView.findViewById(R.id.pop_qq);
+//        LinearLayout kj          = (LinearLayout) popView.findViewById(R.id.pop_kj);
+//        LinearLayout copy        = (LinearLayout) popView.findViewById(R.id.pop_copy);
+//        LinearLayout edit        = (LinearLayout) popView.findViewById(R.id.pop_edit);
+//        LinearLayout delete      = (LinearLayout) popView.findViewById(R.id.pop_delete);
+//        View empty               = popView.findViewById(R.id.pop_empty);
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().setAttributes(lp);
+
+        final PopupWindow popWindow = new PopupWindow(popView, width, height);
+        popWindow.setAnimationStyle(R.style.PopBottom);
+        popWindow.setFocusable(true);
+        View.OnClickListener listener = new View.OnClickListener() {
+            public void onClick(View v) {
+                switch (v.getId()) {
+
+//                    case R.id.pop_wx:
+//
+//                        break;
+//                    case R.id.pop_pyq:
+//
+//                    case R.id.pop_empty:
+//
+//
+//                        break;
+                    default:
+                        break;
+                }
+                popWindow.dismiss();
+
+            }
+        };
+        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+
+//        wx    .setOnClickListener(listener);
+//        pyq   .setOnClickListener(listener);
+//        wb    .setOnClickListener(listener);
+//        qq    .setOnClickListener(listener);
+//        kj    .setOnClickListener(listener);
+//        copy  .setOnClickListener(listener);
+//        edit  .setOnClickListener(listener);
+//        delete.setOnClickListener(listener);
+//        empty .setOnClickListener(listener);
+
+        popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+    }
 
     /**
      * copy

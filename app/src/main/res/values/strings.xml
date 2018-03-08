@@ -49,4 +49,9 @@
     <string name="pop_copy">             "复制链接"</string>
     <string name="pop_edit">             "编辑"</string>
     <string name="pop_delete">           "删除"</string>
+
+
+    <!-- Date_Time  Dialog -->
+    <string name="str_turn_back">取消</string>
+    <string name="str_forward">前进</string>
 </resources>

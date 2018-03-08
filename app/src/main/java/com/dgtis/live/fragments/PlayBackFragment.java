@@ -11,8 +11,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,6 +54,7 @@ public class PlayBackFragment extends BaseFragment {
 
     private RoomListAdapter roomListAdapter;
     private List<RoomListItem> roomList = new ArrayList();
+    private String liveTitle, liveTime, liveCover;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -69,13 +72,14 @@ public class PlayBackFragment extends BaseFragment {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                getRoomList();
                 refreshLayout.setRefreshing(false);
             }
         });
         roomListAdapter.setOnRecyclerViewItemChildClickListener(new BaseQuickAdapter.OnRecyclerViewItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
-                choseIconPopWindow(view);
+                menuPopupWindow(view, i);
             }
         });
         roomListAdapter.setOnRecyclerViewItemClickListener(new BaseQuickAdapter.OnRecyclerViewItemClickListener() {
@@ -96,6 +100,7 @@ public class PlayBackFragment extends BaseFragment {
 
 
     private void getRoomList(){
+        roomList.clear();
         RequestParams params = new RequestParams(API.ROOT + API.BACKLIST);
         params.addQueryStringParameter("loginId","13621761774");
         params.addQueryStringParameter("rows","10");
@@ -139,9 +144,9 @@ public class PlayBackFragment extends BaseFragment {
         });
     }
 
-    private void choseIconPopWindow(View v) {
+    private void menuPopupWindow(View v, final int index) {
         View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
-        View popView = View.inflate(getActivity(), R.layout.layout_pop, null);
+        View popView = View.inflate(getActivity(), R.layout.layout_pop_menu, null);
 
         LinearLayout wx          = (LinearLayout) popView.findViewById(R.id.pop_wx);
         LinearLayout pyq         = (LinearLayout) popView.findViewById(R.id.pop_pyq);
@@ -190,11 +195,30 @@ public class PlayBackFragment extends BaseFragment {
                         putTextIntoClip(getContext());
                         break;
                     case R.id.pop_edit:
-
-
+                        editPopupWindow(v, index);
                         break;
                     case R.id.pop_delete:
-
+                        RequestParams params = new RequestParams(API.ROOT + API.DELETEVIDEO);
+                        params.addQueryStringParameter("videoId",roomList.get(index).getVideoId());
+                        x.http().get(params, new Callback.CommonCallback<String>() {
+                            //请求成功的回调方法
+                            @Override
+                            public void onSuccess(String result) {
+                                Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+                                roomListAdapter.notifyItemRemoved(index);
+                            }
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+                                LogUtil.d(ex.toString());
+                            }
+                            //主动调用取消请求的回调方法
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+                            }
+                            @Override
+                            public void onFinished() {
+                            }
+                        });
 
                         break;
                     case R.id.pop_empty:
@@ -230,6 +254,127 @@ public class PlayBackFragment extends BaseFragment {
         popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
     }
 
+
+    private void editPopupWindow(View v, final int index) {
+        View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        View popView = View.inflate(getActivity(), R.layout.layout_pop_edit, null);
+
+        TextView  cancel      = (TextView) popView.findViewById(R.id.pop_edit_cancel);
+        Button    yes         = (Button) popView.findViewById(R.id.pop_edit_ok);
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().setAttributes(lp);
+
+        final PopupWindow popWindow = new PopupWindow(popView, width, height);
+        popWindow.setAnimationStyle(R.style.PopBottom);
+        popWindow.setFocusable(true);
+        View.OnClickListener listener = new View.OnClickListener() {
+            public void onClick(View v) {
+                switch (v.getId()) {
+
+                    case R.id.pop_edit_cancel:
+
+                        break;
+                    case R.id.pop_edit_ok:
+                        RequestParams params = new RequestParams(API.ROOT + API.VIDEOEDIT);
+                        params.addQueryStringParameter("videoId",roomList.get(index).getVideoId());
+//                        params.addQueryStringParameter("videoName", );
+//                        params.addQueryStringParameter("coverFile", );
+//                        params.addQueryStringParameter("beapeakTime", );
+                        x.http().get(params, new Callback.CommonCallback<String>() {
+                            //请求成功的回调方法
+                            @Override
+                            public void onSuccess(String result) {
+                                Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
+                            }
+                            @Override
+                            public void onError(Throwable ex, boolean isOnCallback) {
+                                LogUtil.d(ex.toString());
+                            }
+                            //主动调用取消请求的回调方法
+                            @Override
+                            public void onCancelled(CancelledException cex) {
+                            }
+                            @Override
+                            public void onFinished() {
+                            }
+                        });
+                        break;
+                    default:
+                        break;
+                }
+                popWindow.dismiss();
+
+            }
+        };
+        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+
+        cancel    .setOnClickListener(listener);
+        yes       .setOnClickListener(listener);
+
+        popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+    }
+
+
+    private void titlePopupWindow(View v, final int index) {
+        View parent = ((ViewGroup) getActivity().findViewById(android.R.id.content)).getChildAt(0);
+        View popView = View.inflate(getActivity(), R.layout.layout_pop_edit, null);
+
+        TextView  cancel      = (TextView) popView.findViewById(R.id.pop_edit_cancel);
+        Button    yes         = (Button) popView.findViewById(R.id.pop_edit_ok);
+
+        int width = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+
+        WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+        lp.alpha = 0.4f;
+        getActivity().getWindow().setAttributes(lp);
+
+        final PopupWindow popWindow = new PopupWindow(popView, width, height);
+        popWindow.setAnimationStyle(R.style.PopBottom);
+        popWindow.setFocusable(true);
+        View.OnClickListener listener = new View.OnClickListener() {
+            public void onClick(View v) {
+                switch (v.getId()) {
+
+                    case R.id.pop_edit_cancel:
+
+                        break;
+                    case R.id.pop_edit_ok:
+
+                        break;
+                    default:
+                        break;
+                }
+                popWindow.dismiss();
+
+            }
+        };
+        popWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                lp.alpha = 1f;
+                getActivity().getWindow().setAttributes(lp);
+            }
+        });
+
+        cancel    .setOnClickListener(listener);
+        yes       .setOnClickListener(listener);
+
+        popWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+    }
 
     /**
      * copy

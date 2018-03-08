@@ -17,4 +17,38 @@
     <color name="color_black">#383838</color>
     <color name="color_red">#ff3b30</color>
     <color name="color_blue">#3F51B5</color>
+
+
+    <!-- 黑色字体颜色 -->
+    <color name="textcolor_black">      #000000</color>
+    <!-- 浅灰色字体颜色 -->
+    <color name="textcolor_light_grey"> #807e7a</color>
+    <!-- 红色字体颜色 -->
+    <color name="textcolor_red">        #e30000</color>
+    <!-- 红色字体颜色 -->
+    <color name="textcolor_green">      #22ad38</color>
+    <!-- 非保险橘黄色字体颜色 -->
+    <color name="not_surance_yellow">   #ffbb38</color>
+    <!-- 保险蓝色字体颜色 -->
+    <color name="surance_blue">         #3598da</color>
+    <!-- 浅蓝色字体颜色 -->
+    <color name="light_blue">           #E5F2FD</color>
+    <!-- 浅黑 -->
+    <color name="home_text_light_black">#333333</color>
+    <!-- 深灰 -->
+    <color name="home_border_dark_gray">#E1E1E1</color>
+    <!-- 选择器dialog条目默认的显示的背景 -->
+    <color name="dialog_unpressed_bg_color">#FFFFFF</color>
+    <color name="corner_border_color">#F3F4F3</color>
+    <!-- 自定义Dialog信息部分文字的颜色 -->
+    <color name="msg_color">#FFFFFFFF</color>
+    <!-- 自定义Dialog中button点击时的颜色 -->
+    <color name="btn_press_color">#FFa5281b</color>
+    <!-- 自定义Dialog中button未点击时的颜色 -->
+    <color name="btn_unpress_color">#FFc0392b</color>
+    <!-- 粉丝团颜色 -->
+    <color name="red_fansclub">#ed7151</color>
+    <!-- @颜色 -->
+    <color name="pink">#f37ff3</color>
+
 </resources>

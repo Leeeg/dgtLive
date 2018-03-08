@@ -57,4 +57,9 @@ public class PersonalFragment extends BaseFragment {
         startActivity(intent);
     }
 
+    @Event(R.id.personal_icon)
+    private void Icon(View view){
+
+    }
+
 }

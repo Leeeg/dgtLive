@@ -42,6 +42,8 @@ dependencies {
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:v1.8.5'
     compile 'com.androidkun:XTabLayout:1.1.3'
     compile 'pub.devrel:easypermissions:0.4.3'
+    //动画
+    compile 'com.nineoldandroids:library:2.4.0'
     compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'})
 
@@ -49,5 +51,5 @@ dependencies {
     // 导入腾讯云直播SDK aar
 //    compile(name: 'LiteAVSDK_Smart_3.9.2754', ext: 'aar')
 
-    compile project(':pullToRefresh')
+    compile project(':imagepicker')
 }

@@ -12,11 +12,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dgtis.live.API;
 import com.dgtis.live.SystemCache;
 import com.dgtis.live.myapplication.R;
+import com.dgtis.live.widget.DateTimeSelectorDialogBuilder;
 import com.tencent.rtmp.ITXLivePushListener;
 import com.tencent.rtmp.TXLiveConstants;
 import com.tencent.rtmp.TXLivePushConfig;
@@ -31,7 +33,10 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.tencent.rtmp.TXLiveConstants.ENCODE_VIDEO_AUTO;
@@ -41,7 +46,7 @@ import static com.tencent.rtmp.TXLiveConstants.ENCODE_VIDEO_AUTO;
  */
 
 @ContentView(R.layout.activity_live)
-public class LiveActivity extends BaseActivity implements ITXLivePushListener {
+public class LiveActivity extends BaseActivity implements ITXLivePushListener, DateTimeSelectorDialogBuilder.OnSaveListener {
 
     @ViewInject(R.id.fl_live_set)
     private FrameLayout fl_live_set;
@@ -49,10 +54,13 @@ public class LiveActivity extends BaseActivity implements ITXLivePushListener {
     @ViewInject(R.id.video_view)
     private TXCloudVideoView mCaptureView;
 
+    @ViewInject(R.id.live_time_set)
+    private TextView liveTimeTxt;
 
     private TXLivePushConfig mLivePushConfig;
     private TXLivePusher mLivePusher;
     private String rtmpUrl = "123";
+    private DateTimeSelectorDialogBuilder dialogBuilder;
 
     private int             customModeType = 0;
     private boolean         mFrontCamera = true;
@@ -64,6 +72,15 @@ public class LiveActivity extends BaseActivity implements ITXLivePushListener {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Event(R.id.live_time_set)
+    private void liveTime(View view){
+        if (dialogBuilder == null) {
+            dialogBuilder = DateTimeSelectorDialogBuilder.getInstance(this);
+            dialogBuilder.setOnSaveListener(this);
+        }
+        dialogBuilder.show();
     }
 
 
@@ -218,5 +235,24 @@ public class LiveActivity extends BaseActivity implements ITXLivePushListener {
     @Override
     public void onNetStatus(Bundle bundle) {
 
+    }
+
+    @Override
+    public void onSaveSelectedDate(String selectedDate) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日 hh时mm分");
+            long dateNow = Long.valueOf((new Date().getTime()));
+            Date date = null;
+            date = simpleDateFormat.parse(selectedDate);
+            final long timeTemp = date.getTime();
+            if (timeTemp < dateNow) {
+                TSBError("日期设置有误");
+                return;
+            }
+            liveTimeTxt.setText(simpleDateFormat.toString());
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
