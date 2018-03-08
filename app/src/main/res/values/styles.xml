@@ -20,6 +20,12 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-
+    <!-- 底部弹窗 -->
+    <style name="PopBottom" parent="@android:style/Animation">
+        <!--当窗口出现的时候  -->
+        <item name="android:windowEnterAnimation">@anim/pop_bottom_in</item>
+        <!--当窗口消失的时候  -->
+        <item name="android:windowExitAnimation">@anim/pop_bottom_out</item>
+    </style>
 
 </resources>

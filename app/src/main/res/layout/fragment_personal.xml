@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:padding="@dimen/dp_10"
             android:layout_alignParentRight="true"
             android:src="@drawable/personal_modification"
             android:id="@+id/personal_modification"
@@ -19,7 +20,8 @@
 
         <com.dgtis.live.imageVIew.CircleImageView
             android:id="@+id/personal_icon"
-            android:layout_marginTop="25dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="@dimen/dp_24"
             android:layout_centerHorizontal="true"
             android:src="@drawable/personal_img"
             android:layout_width="90dp"
@@ -28,18 +30,19 @@
         <TextView
             android:layout_marginTop="@dimen/dp_8"
             android:id="@+id/personal_nick"
-            android:textSize="@dimen/dp_0_6"
+            android:textSize="@dimen/sp_16"
             android:textColor="@color/color_white"
-            android:text="旅人舆猫"
+            android:text=""
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/personal_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginBottom="@dimen/dp_0_6"
+            android:id="@+id/personal_phone"
+            android:layout_marginBottom="@dimen/dp_24"
             android:textColor="@color/color_gray"
-            android:text="账号： 12145325"
+            android:text=""
             android:layout_marginTop="@dimen/dp_4"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/personal_nick"
@@ -163,6 +166,7 @@
         android:layout_height="@dimen/dp_0_6"/>
 
     <LinearLayout
+        android:id="@+id/login_bt"
         android:background="@color/color_white"
         android:padding="@dimen/dp_8"
         android:gravity="center_vertical"

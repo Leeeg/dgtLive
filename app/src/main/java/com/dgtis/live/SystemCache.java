@@ -3,6 +3,7 @@ package com.dgtis.live;
 import android.content.Context;
 import android.os.Environment;
 
+import com.dgtis.live.model.Personal;
 
 import java.io.File;
 
@@ -36,4 +37,13 @@ public class SystemCache {
     private static String       systemVersion;           //系统版本
 
 
+    private static Personal.OpValueBean personal;
+
+    public static Personal.OpValueBean getPersonal() {
+        return personal;
+    }
+
+    public static void setPersonal(Personal.OpValueBean personal) {
+        SystemCache.personal = personal;
+    }
 }

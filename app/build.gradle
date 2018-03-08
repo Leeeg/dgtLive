@@ -47,7 +47,7 @@ dependencies {
 
 
     // 导入腾讯云直播SDK aar
-    compile(name: 'LiteAVSDK_Smart_3.9.2754', ext: 'aar')
+//    compile(name: 'LiteAVSDK_Smart_3.9.2754', ext: 'aar')
 
     compile project(':pullToRefresh')
 }

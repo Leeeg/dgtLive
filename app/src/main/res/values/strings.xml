@@ -34,10 +34,19 @@
     <string name="live_join">            "参与方式"</string>
     <string name="live_content">         "内容介绍"</string>
     <string name="live_recommend">       "推荐给参与过我直播的人"</string>
+    <string name="live_share">           "分享到： "</string>
+
     <string name="live_set">             "未设置"</string>
     <string name="live_start">           "立即开始"</string>
     <string name="live_video">           "视频直播"</string>
     <string name="live_free">            "公开"</string>
     <string name="live_crate">           "创建"</string>
-    <string name="live_share">           "分享到:"</string>
+    <string name="pop_wx">               "微信"</string>
+    <string name="pop_pyq">              "朋友圈"</string>
+    <string name="pop_wb">               "微博"</string>
+    <string name="pop_qq">               "QQ"</string>
+    <string name="pop_kj">               "QQ空间"</string>
+    <string name="pop_copy">             "复制链接"</string>
+    <string name="pop_edit">             "编辑"</string>
+    <string name="pop_delete">           "删除"</string>
 </resources>

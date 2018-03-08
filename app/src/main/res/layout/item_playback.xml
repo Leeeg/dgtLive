@@ -12,11 +12,17 @@
         xmlns:melove="http://schemas.android.com/apk/res-auto"
         android:id="@+id/image_cover"
         android:scaleType="centerCrop"
-        android:src="@drawable/cat3"
         android:layout_width="190dp"
         android:layout_height="120dp"
         melove:radius="10dp"
         melove:shape_type="rectangle" />
+
+    <ImageView
+        android:id="@+id/item_img_more"
+        android:padding="@dimen/dp_10"
+        android:src="@drawable/icon_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:layout_marginLeft="@dimen/dp_4"
@@ -24,7 +30,7 @@
         android:layout_toRightOf="@+id/image_cover"
         android:textColor="@android:color/black"
         android:textSize="@dimen/sp_16"
-        android:text="课程主题xxxxxxx"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -43,8 +49,8 @@
         android:layout_alignBottom="@+id/image_cover"
         android:layout_toRightOf="@+id/live_people"
         android:id="@+id/time_room"
-        android:textSize="@dimen/sp_16"
-        android:text="01-09 21:00"
+        android:textSize="@dimen/sp_14"
+        android:text=""
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

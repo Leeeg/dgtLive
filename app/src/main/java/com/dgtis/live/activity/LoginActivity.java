@@ -3,23 +3,20 @@ package com.dgtis.live.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,15 +28,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.dgtis.live.API;
+import com.dgtis.live.Inners.GsonInner;
+import com.dgtis.live.SystemCache;
+import com.dgtis.live.model.Personal;
 import com.dgtis.live.myapplication.R;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -169,12 +169,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         View focusView = null;
 
         RequestParams params = new RequestParams(API.ROOT + API.LOGIN);
-        params.addQueryStringParameter("loginId", "13816542203");
-        params.addQueryStringParameter("loginPwd", "123");
+        params.addQueryStringParameter("loginId", "13621761774");
+        params.addQueryStringParameter("loginPwd", "123456");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Toast.makeText(LoginActivity.this, "success", Toast.LENGTH_SHORT).show();
+                Personal personal = GsonInner.getGsonInstance().fromJson(result, Personal.class);
+                SystemCache.setPersonal(personal.getOpValue().get(0));
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {

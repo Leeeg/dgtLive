@@ -42,6 +42,8 @@
 
         <activity android:name="com.dgtis.live.activity.WalletActivity"/>
         <activity android:name="com.dgtis.live.activity.LiveActivity"/>
+        <activity android:name="com.dgtis.live.activity.PlayActivity"/>
+        <activity android:name="com.dgtis.live.activity.VideoActivity"/>
 
     </application>
 
